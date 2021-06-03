@@ -1,6 +1,6 @@
-import 'package:pesan_makanan/home.dart';
 import 'package:flutter/material.dart';
 
+import 'package:pesan_makanan/move.dart';
 void main() {
   runApp(MyApp());
 }
@@ -12,7 +12,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "Food Delivery",
       theme: ThemeData(primaryColor: Colors.blue),
-      home: Home(),
+      home: Move(),
     );
   }
 }
+
+

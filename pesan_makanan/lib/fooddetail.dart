@@ -29,7 +29,7 @@ class FoodDetail extends StatelessWidget {
             
           ),
           style: ElevatedButton.styleFrom(
-            primary: AppColors.primary,
+            primary: Colors.lightBlueAccent,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10),
             ),
         
@@ -195,7 +195,7 @@ class FoodDetail extends StatelessWidget {
             decoration: BoxDecoration(
                 border: Border.all(color: AppColors.lightGray),
                 borderRadius: BorderRadius.circular(10),
-                color: AppColors.primary),
+                color: Colors.lightBlueAccent),
             child: Icon(
               Icons.star,
               color: AppColors.white,

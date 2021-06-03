@@ -17,111 +17,108 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
-      appBar: AppBar(
-        centerTitle: false,
-        backgroundColor: AppColors.white,
-        elevation: 0,
-        title: Padding(
-          padding: EdgeInsets.only(left: 10),
-          child: CircleAvatar(
-            radius: 25,
-            backgroundImage: AssetImage('assets/man.jpeg'),
-          ),
-        ),
-        actions: [
-          IconButton(
-            onPressed: null,
-            icon: SvgPicture.asset('assets/menu.svg'),
-          ),
-        ],
-      ),
-      body: ListView(
-        children: [
-          Container(
-            padding: EdgeInsets.only(left: 20, top: 25),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      body: SafeArea(
+        child: Column(
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.only(left: 10, top: 25),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  PrimaryText(text: 'Food Delivery', fontsize: 20),
+                ],
+              ),
+            ),
+            Row(
               children: [
-                PrimaryText(text: 'Food', fontsize: 20),
-                PrimaryText(
-                  text: 'Delivery',
-                  fontsize: 42,
-                  fontWeight: FontWeight.w600,
-                  height: 1.1,
+                SizedBox(
+                  width: 20,
+                ),
+                Icon(
+                  Icons.search,
+                  color: AppColors.secondary,
+                  size: 25,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                  child: TextField(
+                    decoration: InputDecoration(
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: AppColors.lighterGray),
+                        ),
+                        hintText: 'Search...',
+                        hintStyle: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.lightGray,
+                            fontSize: 18)),
+                  ),
                 ),
               ],
             ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Row(
-            children: [
-              SizedBox(
-                width: 20,
-              ),
-              Icon(
-                Icons.search,
-                color: AppColors.secondary,
-                size: 25,
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Expanded(
-                child: TextField(
-                  decoration: InputDecoration(
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: AppColors.lighterGray),
+            Expanded(
+              child: ListView(
+                children: [
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 20,
                       ),
-                      hintText: 'Search...',
-                      hintStyle: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.lightGray,
-                          fontSize: 18)),
-                ),
+                      SizedBox(
+                        width: 20,
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 20.0),
+                    child: PrimaryText(
+                        text: 'Categories',
+                        fontWeight: FontWeight.w800,
+                        fontsize: 22),
+                  ),
+                  SizedBox(
+                    height: 240,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: foodCategoryList.length,
+                      itemBuilder: (context, index) => Padding(
+                        padding: EdgeInsets.only(left: index == 0 ? 25 : 0),
+                        child: foodCateogryCard(
+                            foodCategoryList[index]['imagePath'],
+                            foodCategoryList[index]['name'],
+                            index),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 20.0, top: 10),
+                    child: PrimaryText(
+                        text: 'Popular',
+                        fontWeight: FontWeight.w800,
+                        fontsize: 22),
+                  ),
+                  Column(
+                      children: List.generate(
+                          popularFoodList.length,
+                          (index) => popularFood(
+                              context,
+                              popularFoodList[index]['imagePath'],
+                              popularFoodList[index]['name'],
+                              popularFoodList[index]['weight'],
+                              popularFoodList[index]['star'])))
+                ],
               ),
-              SizedBox(
-                width: 20,
-              )
-            ],
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 20.0),
-            child: PrimaryText(
-                text: 'Categories', fontWeight: FontWeight.w800, fontsize: 22),
-          ),
-          SizedBox(
-            height: 240,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: foodCategoryList.length,
-              itemBuilder: (context, index) => Padding(
-                padding: EdgeInsets.only(left: index == 0 ? 25 : 0),
-                child: foodCateogryCard(foodCategoryList[index]['imagePath'],
-                    foodCategoryList[index]['name'], index),
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 20.0, top: 10),
-            child: PrimaryText(
-                text: 'Popular', fontWeight: FontWeight.w800, fontsize: 22),
-          ),
-          Column(
-              children: List.generate(
-                  popularFoodList.length,
-                  (index) => popularFood(
-                      context,
-                      popularFoodList[index]['imagePath'],
-                      popularFoodList[index]['name'],
-                      popularFoodList[index]['weight'],
-                      popularFoodList[index]['star'])))
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -131,7 +128,6 @@ class _HomeState extends State<Home> {
     return GestureDetector(
       onTap: () => (Navigator.push(
           context, MaterialPageRoute(builder: (context) => FoodDetail()))),
-          
       child: Container(
         margin: EdgeInsets.only(left: 20, right: 20, top: 25),
         decoration: BoxDecoration(
@@ -153,7 +149,7 @@ class _HomeState extends State<Home> {
                       children: [
                         Icon(
                           Icons.star,
-                          color: AppColors.primary,
+                          color: Colors.lightBlueAccent,
                           size: 20,
                         ),
                         SizedBox(width: 10),
@@ -191,7 +187,7 @@ class _HomeState extends State<Home> {
                           borderRadius: BorderRadius.only(
                               topRight: Radius.circular(20),
                               bottomLeft: Radius.circular(20)),
-                          color: AppColors.primary,
+                          color: Colors.lightBlueAccent,
                         ),
                         child: Icon(
                           Icons.add,
@@ -252,7 +248,7 @@ class _HomeState extends State<Home> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: selectedCateogryCard == index
-              ? AppColors.primary
+              ? Colors.lightBlueAccent
               : AppColors.white,
           boxShadow: [BoxShadow(color: AppColors.lighterGray, blurRadius: 10)],
         ),
